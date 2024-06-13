@@ -6,6 +6,7 @@ import com.example.Cadastros.CadastroCliente;
 import com.example.Cadastros.CadastroProduto;
 import com.example.Cadastros.CadastroVenda;
 import com.example.DataBase.Autenticacao;
+import com.example.Registros.Registros;
 
 public class Main {
     public static void main(String[] args) {
@@ -71,14 +72,22 @@ public class Main {
 
         while (true) {
             System.out.println("Menu do Gerente:");
-            System.out.println("1. Pesquisar Registros");
+            System.out.println("1. Buscar ou listar Registros");
             System.out.println("2. Editar Registros");
             System.out.println("3. Deletar Registros");
             System.out.println("4. Sair");
             System.out.print("Escolha uma opção: ");
             int choice = scanner.nextInt();
             switch (choice) {
-                // Adicione métodos para as opções do gerente
+                case 1:
+                    Registros.buscarRegistros();
+                    break;
+                case 2:
+                    Registros.editarRegistros();
+                    break;
+                case 3:
+                    Registros.excluirRegistros();
+                    break;
                 case 4:
                     System.out.println("Saindo...");
                     return;
@@ -107,7 +116,6 @@ public class Main {
                     CadastroCliente.adicionarCliente();
                     break;
                 case 3:
-                    // Implement method to view sales records
                     break;
                 case 4:
                     System.out.println("Saindo...");
