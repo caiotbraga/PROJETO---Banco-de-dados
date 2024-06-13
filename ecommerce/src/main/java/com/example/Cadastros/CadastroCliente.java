@@ -12,13 +12,14 @@ public class CadastroCliente {
     public static void adicionarCliente() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Digite o nome do cliente: ");
-        String nome = scanner.next();
+        String nome = scanner.nextLine();
         System.out.print("Digite o sexo (m/f/o): ");
         String sexo = scanner.next();
         System.out.print("Digite a idade: ");
         int idade = scanner.nextInt();
+        scanner.nextLine();
         System.out.print("Digite a data de nascimento (AAAA-MM-DD): ");
-        String dataNascimento = scanner.next();
+        String dataNascimento = scanner.nextLine();
 
         String sql = "INSERT INTO cliente (nome, sexo, idade, nascimento) VALUES (?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();

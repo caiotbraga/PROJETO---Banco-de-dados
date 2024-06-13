@@ -12,11 +12,12 @@ public class CadastroProduto {
     public static void adicionarProduto() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Digite o nome do produto: ");
-        String nome = scanner.next();
+        String nome = scanner.nextLine();
         System.out.print("Digite a quantidade: ");
         int quantidade = scanner.nextInt();
+        scanner.nextLine();
         System.out.print("Digite a descrição: ");
-        String descricao = scanner.next();
+        String descricao = scanner.nextLine();
         System.out.print("Digite o preço: ");
         double preco = scanner.nextDouble();
 
