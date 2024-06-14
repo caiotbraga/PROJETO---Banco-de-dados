@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.example.DataBase.Autenticacao;
 import com.example.DataBase.DatabaseConnection;
 
 public class CadastroProduto {
@@ -22,7 +23,7 @@ public class CadastroProduto {
         double preco = scanner.nextDouble();
 
         String sql = "INSERT INTO produto (nome, quantidade, descricao, valor) VALUES (?, ?, ?, ?)";
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = DatabaseConnection.getConnection(Autenticacao.nome, Autenticacao.senha);
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, nome);
             pstmt.setInt(2, quantidade);

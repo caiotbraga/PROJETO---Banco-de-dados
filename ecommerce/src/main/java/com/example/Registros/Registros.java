@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Scanner;
 
+import com.example.DataBase.Autenticacao;
 import com.example.DataBase.DatabaseConnection;
 
 import java.sql.Statement;
@@ -17,7 +19,7 @@ public class Registros {
     System.out.print("Digite o nome do produto ou deixe em branco para listar todos: ");
     String nomeProduto = scanner.nextLine().trim();
 
-    try (Connection connection = DatabaseConnection.getConnection();
+    try (Connection connection = DatabaseConnection.getConnection(Autenticacao.nome, Autenticacao.senha);
          Statement stmt = connection.createStatement()) {
 
         String sql;
@@ -55,7 +57,7 @@ public static void editarRegistros() {
     int idProduto = scanner.nextInt();
     scanner.nextLine(); 
 
-    try (Connection connection = DatabaseConnection.getConnection();
+    try (Connection connection = DatabaseConnection.getConnection(Autenticacao.nome, Autenticacao.senha);
          PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM produto WHERE id = ?")) {
 
         pstmt.setInt(1, idProduto);
@@ -145,7 +147,7 @@ public static void excluirRegistros() {
     System.out.print("Digite o ID do produto que deseja excluir: ");
     int idProduto = scanner.nextInt();
 
-    try (Connection connection = DatabaseConnection.getConnection();
+    try (Connection connection = DatabaseConnection.getConnection(Autenticacao.nome, Autenticacao.senha);
          PreparedStatement pstmt = connection.prepareStatement("DELETE FROM produto WHERE id = ?")) {
 
         pstmt.setInt(1, idProduto);
@@ -157,6 +159,29 @@ public static void excluirRegistros() {
         } 
         else {
             System.out.println("Produto não encontrado ou falha ao excluir.");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+public static void listarVendas() {
+    String sql = "SELECT * FROM venda";
+
+    try (Connection connection = DatabaseConnection.getConnection(Autenticacao.nome, Autenticacao.senha);
+         Statement stmt = connection.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+
+        while (rs.next()) {
+            int idVenda = rs.getInt("id");
+            int idVendedor = rs.getInt("id_vendedor");
+            int idCliente = rs.getInt("id_cliente");
+            Date dataVenda = rs.getDate("data");
+            double valor = rs.getDouble("valor");
+
+            System.out.printf("ID da Venda: %d, Vendedor: %d, Cliente: %d, Data: %s\n",
+                    idVenda, idVendedor, idCliente, dataVenda.toString(), valor);
         }
 
     } catch (SQLException e) {

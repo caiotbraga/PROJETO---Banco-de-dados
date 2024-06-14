@@ -11,8 +11,13 @@ import com.example.Registros.Registros;
 public class Main {
     public static void main(String[] args) {
 
-        String cargoUsuario = Autenticacao.authenticate();
+        if (!Autenticacao.autenticar()) {
+            System.out.println("Saindo...");
+            return;
+        }
 
+        String cargoUsuario = Autenticacao.nome;
+        
         if (cargoUsuario == null) {
             System.out.println("Saindo...");
             return;
@@ -45,6 +50,7 @@ public class Main {
             System.out.println("3. Fazer venda");
             System.out.println("4. Sair");
             System.out.print("Escolha uma opção: ");
+            
             int op = scanner.nextInt();
 
             switch (op) {
@@ -116,6 +122,7 @@ public class Main {
                     CadastroCliente.adicionarCliente();
                     break;
                 case 3:
+                    Registros.listarVendas();
                     break;
                 case 4:
                     System.out.println("Saindo...");

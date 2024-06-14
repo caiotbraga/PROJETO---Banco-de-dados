@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.example.DataBase.Autenticacao;
 import com.example.DataBase.DatabaseConnection;
 
 public class CadastroVenda {
@@ -20,7 +21,7 @@ public class CadastroVenda {
         int quantidade = scanner.nextInt();
 
         String sql = "CALL realizar_venda(?, ?, ?, ?)";
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = DatabaseConnection.getConnection(Autenticacao.nome, Autenticacao.senha);
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, idVendedor);
             pstmt.setInt(2, idCliente);
